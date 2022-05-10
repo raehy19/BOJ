@@ -1,33 +1,31 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int main()
 {
 	int		a, b, c, result;
-	char	*str;
-	char	nums[] = "0123456789";
+	int 	nums[10];
 	int		counts[10];
 
-	str = (char *) malloc(sizeof(char) * 10);
+	for (int i = 0; i < 10; i++)
+		nums[i] = i;
 	for (int i = 0; i < 10; i++)
 		counts[i] = 0;
 	scanf("%d\n%d\n%d", &a, &b, &c);
 	result = a * b * c;
-	itoa(result,str,10);
-	for (int i = 0; i < 10; i++)
+	while (result > 0)
 	{
-		for (int j = 0; j < 10; j++)
+		for (int i = 0; i < 10; i++)
 		{
-			if (*(nums + j) == *(str + i))
+			if (result % 10 == *(nums + i))
 			{
-				counts[j]++;
+				counts[i]++;
 				break;
 			}
 		}
+		result /= 10;
 	}
 	for (int i = 0; i < 9; i++)
 		printf("%d\n",counts[i]);
 	printf("%d",counts[9]);
-	free(str);
 	return 0;
 }
