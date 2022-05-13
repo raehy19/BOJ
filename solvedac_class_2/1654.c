@@ -3,23 +3,31 @@
 
 int main()
 {
-	long long	k, n, can_make;
-	long long	*cables;
+	int 		k, n;
+	long long	max = 0;
+	long long	min = 1;
+	int 		*cables;
 
-	scanf(("%lld %lld"), &k, &n);
-	cables = (long long *) malloc(sizeof(long long) * k);
+	scanf(("%d %d"), &k, &n);
+	cables = (int *) malloc(sizeof(int) * k);
 	for (int i = 0; i < k; i++)
-		scanf("%lld", cables + i);
-	for (int cable_len = 1; 1; cable_len++)
 	{
-		can_make = 0;
-		for (int i = 0; i < k; i++)
-			can_make += (*(cables + i) / cable_len);
-		if (can_make < n)
-		{
-			printf("%d", cable_len - 1);
-			free(cables);
-			return 0;
-		}
+		scanf("%d", cables + i);
+		if (*(cables + i) > max)
+			max = (long long) *(cables + i);
 	}
+	while (min <= max)
+	{
+		long long	can_make = 0;
+		long long	median;
+
+		median = (max + min) / 2;
+		for (int i = 0; i < k; i++)
+			can_make += (*(cables + i) / median);
+		if (can_make < n)
+			max = median - 1;
+		else
+			min = median + 1;
+	}
+	printf("%lld", max);
 }
