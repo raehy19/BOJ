@@ -4,7 +4,7 @@
 typedef struct s_node
 {
 	int				data;
-	struct s_node*	next;
+	struct s_node	*next;
 } t_node;
 
 void	ft_push(t_node **top_node, int data)
@@ -12,6 +12,8 @@ void	ft_push(t_node **top_node, int data)
 	t_node *new_node = NULL;
 
 	new_node = (t_node *) malloc(sizeof(t_node));
+	if (new_node == NULL)
+		return ;
 	new_node->data = data;
 	new_node->next = *top_node;
 	*top_node = new_node;
@@ -19,13 +21,12 @@ void	ft_push(t_node **top_node, int data)
 
 int ft_pop(t_node **top_node)
 {
-
 	int 	data;
 	t_node	*temp = *top_node;
+
 	data = temp->data;
 	*top_node = temp->next;
 	free(temp);
-
 	return (data);
 }
 
@@ -36,14 +37,17 @@ int main()
 	int		*arr;
 	char	*operators;
 	int 	op_idx = 0;
-
 	t_node	*stack = NULL;
 
 	scanf("%d", &n);
 	arr = (int *) malloc(sizeof(int) * n);
+	if (arr == NULL)
+		return -1;
 	for (int i = 0; i < n; ++i)
 		scanf("%d", arr + i);
 	operators = (char *) malloc(sizeof(char) * (2 * n + 1));
+	if (operators == NULL)
+		return -1;
 	*(operators + (2 * n)) = '\0';
 	for (int i = 0; i < n; ++i)
 	{
