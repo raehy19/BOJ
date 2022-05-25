@@ -4,7 +4,7 @@ int main()
 {
 	int	a, b, v, distance_per_day, day_count;
 
-	scanf("%d %d  %d", &a, &b, &v);
+	scanf("%d %d %d", &a, &b, &v);
 	if (a == v)
 	{
 		printf("1");
