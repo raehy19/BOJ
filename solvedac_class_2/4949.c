@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 
 typedef struct s_node
 {
@@ -33,52 +33,45 @@ char ft_pop(t_node **top_node)
 
 int main()
 {
-	char	temp;
-	int 	len;
+	char	line[102];
+	int 	i;
 	t_node	*stack = NULL;
 
-	temp = '\0';
 	while (1)
 	{
-		len = 0;
-		while (temp != '.')
+		fgets(line, 102, stdin);
+		if (strcmp(line, ".\n") == 0)
+			return (0);
+		i = 0;
+		while (*(line + i) != '.')
 		{
-			read(0, &temp, 1);
-			if (temp == '[')
+			if (*(line + i) == '[')
 				ft_push(&stack, '[');
-			else if (temp == '(')
+			else if (*(line + i) == '(')
 				ft_push(&stack, '(');
-			else if (temp == ']')
+			else if (*(line + i) == ']')
 			{
 				if (stack == NULL || stack->data != '[')
 					break;
 				else
 					ft_pop(&stack);
 			}
-			else if (temp == ')')
+			else if (*(line + i) == ')')
 			{
 				if (stack == NULL || stack->data != '(')
 					break;
 				else
 					ft_pop(&stack);
 			}
-			++len;
+			++i;
 		}
-		if (temp == '.')
-		{
-			if (len == 1)
-				return (0);
-			else if (stack == NULL)
+		if (*(line + i) == '.' && stack == NULL)
 				printf("yes\n");
-		}
 		else
 		{
 			printf("no\n");
 			while (stack != NULL)
 				ft_pop(&stack);
-			while (temp != '.')
-				read(0, &temp, 1);
 		}
-		read(0, &temp, 1);
 	}
 }
