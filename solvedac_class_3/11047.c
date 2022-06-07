@@ -11,7 +11,7 @@ int main()
 	for (int i = 0; i < n; ++i)
 		scanf("%d", coins + i);
 	coin_count = 0;
-	for (int i = n; i > 0; --i)
+	for (int i = n - 1; i > -1; --i)
 	{
 		coin_count += k / *(coins + i);
 		k %= *(coins + i);
