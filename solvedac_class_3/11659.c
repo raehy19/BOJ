@@ -3,22 +3,23 @@
 
 int main()
 {
-	int					num_of_nums, num_of_case, start, end;
-	unsigned long long	sum;
-	int					*nums;
+	int	num_of_nums, num_of_case, start, end;
+	int	*nums, *sums;
 
 	scanf("%d %d", &num_of_nums, &num_of_case);
 	nums = (int *) malloc(sizeof(int) * num_of_nums);
+	sums = (int *) malloc(sizeof(int) * (num_of_nums + 1));
 	for (int i = 0; i < num_of_nums; ++i)
 		scanf("%d", nums + i);
-	for (int i = 0; i < num_of_nums; ++i)
+	*(sums) = 0;
+	for (int i = 1; i < num_of_nums + 1; ++i)
+		*(sums + i) = *(sums + i - 1) + *(nums + i - 1);
+	for (int i = 0; i < num_of_case; ++i)
 	{
-		sum = 0;
 		scanf("%d %d", &start, &end);
-		for (int j = start - 1; j < end; ++j)
-			sum	+= *(nums + j);
-		printf("%lld\n",sum);
+		printf("%d\n", *(sums + end) - *(sums + start - 1));
 	}
 	free(nums);
+	free(sums);
 	return (0);
 }
