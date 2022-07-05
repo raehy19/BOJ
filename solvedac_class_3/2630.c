@@ -60,14 +60,14 @@ int main()
 
 	scanf("%d", &n);
 	map = (int **) malloc(sizeof(int *) * (n));
-	for (int i = 0; i < n + 1; ++i)
+	for (int i = 0; i < n; ++i)
 		*(map + i) = (int *) malloc(sizeof(int) * (n));
 	for (int i = 0; i < n; ++i)
 		for (int j = 0; j < n; ++j)
 			scanf("%d", (*(map + i) + j));
 	temp_count = ft_solve(map, 0, 0, n);
 	printf("%d\n%d", temp_count.white, temp_count.blue);
-	for (int i = 0; i < n + 1; ++i)
+	for (int i = 0; i < n; ++i)
 		free(*(map + i));
 	free(map);
 	return (0);
